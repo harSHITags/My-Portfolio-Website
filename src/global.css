@@ -1,0 +1,361 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-poppins: "Poppins", sans-serif;
+    --font-roboto-mono: "Roboto Mono", monospace;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: var(--font-poppins);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #000000;
+    color: #f1f5f9;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+}
+
+
+/* Ultra-Performance optimizations */
+* {
+  will-change: auto;
+}
+
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+.ultra-smooth {
+  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.lightning-fast {
+  transition: all 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.instant-response {
+  transition: all 0.05s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Enhanced smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Lightning-fast animations */
+@keyframes gradientShift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    transform: translateZ(0);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: translateZ(0);
+  }
+}
+
+@keyframes ultraFloat {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, -3px, 0) rotate(0.3deg);
+  }
+}
+
+@keyframes lightningTyping {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes quickBlink {
+  0%,
+  50% {
+    border-color: transparent;
+  }
+  51%,
+  100% {
+    border-color: #0ea5e9;
+  }
+}
+
+@keyframes instantFadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 5px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes quickSlideLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-10px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes quickSlideRight {
+  from {
+    opacity: 0;
+    transform: translate3d(10px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes instantSlideUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 5px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes lightningShimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes ultraScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes quickPulse {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.005);
+  }
+}
+
+/* Ultra-fast utility classes */
+.animate-ultra-float {
+  animation: ultraFloat 1.5s ease-in-out infinite;
+}
+
+.animate-lightning-typing {
+  overflow: hidden;
+  border-right: 3px solid #0ea5e9;
+  white-space: nowrap;
+  animation: lightningTyping 1s steps(40, end), quickBlink 0.8s infinite;
+}
+
+.animate-instant-fade-up {
+  animation: instantFadeUp 0.15s ease-out;
+}
+
+.animate-quick-slide-left {
+  animation: quickSlideLeft 0.12s ease-out;
+}
+
+.animate-quick-slide-right {
+  animation: quickSlideRight 0.12s ease-out;
+}
+
+.animate-instant-slide-up {
+  animation: instantSlideUp 0.1s ease-out;
+}
+
+.animate-lightning-shimmer {
+  animation: lightningShimmer 0.8s infinite;
+}
+
+.animate-ultra-scroll {
+  animation: ultraScroll 12s linear infinite;
+}
+
+.animate-ultra-scroll:hover {
+  animation-play-state: paused;
+}
+
+.animate-quick-pulse {
+  animation: quickPulse 0.8s ease-in-out infinite;
+}
+
+/* Ultra-smooth scrollbar */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #0ea5e9, #0369a1);
+  border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #0284c7, #075985);
+}
+
+/* Lightning-fast hover effects */
+.hover-instant {
+  transition: transform 0.08s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-instant:hover {
+  transform: translateY(-1px) translateZ(0);
+}
+
+.hover-lightning {
+  transition: transform 0.05s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-lightning:hover {
+  transform: scale(1.01) translateZ(0);
+}
+
+.hover-micro {
+  transition: all 0.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-micro:hover {
+  transform: translateY(-0.5px) scale(1.005) translateZ(0);
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.contain-layout {
+  contain: layout;
+}
+
+.contain-paint {
+  contain: paint;
+}
+
+.contain-strict {
+  contain: strict;
+}
+
+/* Loading optimizations */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: lightningShimmer 1s infinite;
+}
+
+/* Intersection observer optimizations */
+.fade-in-observer {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+}
+
+.fade-in-observer.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Micro-interactions */
+.micro-bounce {
+  transition: transform 0.1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.micro-bounce:active {
+  transform: scale(0.98) translateZ(0);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Enhanced responsive optimizations */
+@media (max-width: 640px) {
+  .animate-lightning-typing {
+    animation: lightningTyping 0.8s steps(25, end), quickBlink 0.8s infinite;
+  }
+
+  .ultra-smooth {
+    transition: all 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+}
+
+/* Critical rendering path optimizations */
+.critical-render {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 500px;
+}
+
+.lazy-render {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 300px;
+}

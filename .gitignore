@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# production
+dist/
+dist-ssr/
+*.local
+
+# logs
+logs/
+*.log
+
+# env
+.env*
+
+# editor stuff
+.vscode/
+.idea/
+.DS_Store
+
+# others
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
