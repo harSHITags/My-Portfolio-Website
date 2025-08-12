@@ -4,7 +4,8 @@ import { useRef, useEffect } from "react";
 import awsLogo from '../assets/certLogos/aws-svgrepo-com.svg';
 import ciscoLogo from '../assets/certLogos/cisco-ar21~bgwhite.svg';
 import googleLogo from '../assets/certLogos/google-developers-svgrepo-com.svg';
-import infosysLogo from '../assets/certLogos/infosys_logo.svg';
+
+
 import HackerRank from '../assets/certLogos/HackerRank.svg';
 
 const Certifications = () => {
