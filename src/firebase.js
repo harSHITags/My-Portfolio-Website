@@ -1,23 +1,22 @@
-
-// src/firebase.js
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore, setLogLevel } from "firebase/firestore";
 
-// Your Firebase configuration
+
+setLogLevel("debug"); 
+
 const firebaseConfig = {
-  apiKey: "AIzaSyC9TwapiVq3MJulJcGM-FXCtWT_shUPw0E",
-  authDomain: "portfolio-contact-3d8aa.firebaseapp.com",
-  projectId: "portfolio-contact-3d8aa",
-  storageBucket: "portfolio-contact-3d8aa.firebasestorage.app",
-  messagingSenderId: "233134625519",
-  appId: "1:233134625519:web:432165750b7511e2db411a",
-  measurementId: "G-P7E97EKK43"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-// Initialize Firestore
-const db = getFirestore(app);
 
+const db = getFirestore(app);
 export { db };
+

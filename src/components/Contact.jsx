@@ -31,7 +31,8 @@ const Contact = () => {
     setNotification(null);
 
     try {
-      await addDoc(collection(db, "portfolio-message"), {
+      console.log("[Firestore] Attempting to submit message...");
+      const docRef = await addDoc(collection(db, "portfolio-message"), {
         Name: formData.name,
         Email: formData.email,
         Subject: formData.subject,
@@ -39,7 +40,8 @@ const Contact = () => {
         Timestamp: serverTimestamp()
       });
       
-      // Show success notification
+      console.log("[Firestore] Message submitted with ID:", docRef.id);
+      
       setNotification({
         type: 'success',
         message: 'Message sent successfully! I will get back to you soon.'
@@ -52,15 +54,27 @@ const Contact = () => {
         message: ''
       });
       
-      // Auto-dismiss after 5 seconds
       setTimeout(() => setNotification(null), 5000);
       
     } catch (error) {
-      console.error("Error submitting form: ", error);
-      // Show error notification
+      console.error("[Firestore Error]", {
+        code: error.code,
+        message: error.message,
+        fullError: error
+      });
+      
+      let errorMessage = 'Failed to send message. Please try again.';
+      
+      // Specific error handling
+      if (error.code === 'permission-denied') {
+        errorMessage = 'Database permission denied. Check security rules.';
+      } else if (error.code === 'unavailable') {
+        errorMessage = 'Network error. Please check your connection.';
+      }
+      
       setNotification({
         type: 'error',
-        message: 'Failed to send message. Please try again.'
+        message: errorMessage
       });
     } finally {
       setIsSubmitting(false);
@@ -74,7 +88,6 @@ const Contact = () => {
     window.location.href = `mailto:harshitarathore106@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${body}`)}`;
   };
 
-  // Notification component
   const NotificationToast = () => (
     <AnimatePresence>
       {notification && (
@@ -158,7 +171,6 @@ const Contact = () => {
         </h2>
 
         <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Form */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -258,7 +270,6 @@ const Contact = () => {
             </form>
           </motion.div>
 
-          {/* Contact Info */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -295,7 +306,6 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Social Links */}
             <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-lg">
               <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Connect With Me</h3>
               <div className="flex justify-center gap-6">
