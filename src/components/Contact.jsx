@@ -14,7 +14,7 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [notification, setNotification] = useState(null);
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -22,14 +22,13 @@ const Contact = () => {
       [name]: value
     }));
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
     
     setIsSubmitting(true);
     setNotification(null);
-
     try {
       console.log("[Firestore] Attempting to submit message...");
       const docRef = await addDoc(collection(db, "portfolio-message"), {
@@ -80,14 +79,14 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
-
+  
   const handleEmailClick = (e) => {
     e.preventDefault();
     const subject = formData.subject ? `Subject: ${formData.subject}` : 'Contact from portfolio';
     const body = formData.message ? `Message: ${formData.message}` : '';
     window.location.href = `mailto:harshitarathore106@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\n${body}`)}`;
   };
-
+  
   const NotificationToast = () => (
     <AnimatePresence>
       {notification && (
@@ -96,39 +95,39 @@ const Contact = () => {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.5 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className={`fixed bottom-8 right-8 z-50 flex items-center justify-between p-4 rounded-lg shadow-xl max-w-md ${
+          className={`fixed bottom-4 right-4 md:bottom-8 md:right-8 z-50 flex items-center justify-between p-3 md:p-4 rounded-lg shadow-xl max-w-xs md:max-w-md ${
             notification.type === 'success' 
-              ? 'bg-green-100 text-green-800 border border-green-200' 
-              : 'bg-red-100 text-red-800 border border-red-200'
+              ? 'bg-green-600/90 text-white border border-green-700' 
+              : 'bg-red-600/90 text-white border border-red-700'
           }`}
         >
           <div className="flex items-center">
             {notification.type === 'success' ? (
-              <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-5 h-5 md:w-6 md:h-6 bg-white/20 rounded-full flex items-center justify-center mr-2 md:mr-3">
+                <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                 </svg>
               </div>
             ) : (
-              <div className="w-6 h-6 bg-red-500 rounded-full flex items-center justify-center mr-3">
-                <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-5 h-5 md:w-6 md:h-6 bg-white/20 rounded-full flex items-center justify-center mr-2 md:mr-3">
+                <svg className="w-3 h-3 md:w-4 md:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
               </div>
             )}
-            <span>{notification.message}</span>
+            <span className="text-sm md:text-base">{notification.message}</span>
           </div>
           <button 
             onClick={() => setNotification(null)}
-            className="ml-4 text-gray-500 hover:text-gray-700"
+            className="ml-2 md:ml-4 text-white/80 hover:text-white"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4 md:w-5 md:h-5" />
           </button>
         </motion.div>
       )}
     </AnimatePresence>
   );
-
+  
   const socialLinks = [
     {
       icon: FaLinkedin,
@@ -160,28 +159,30 @@ const Contact = () => {
       name: "Email"
     },
   ];
-
+  
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-slate-100 to-blue-100 dark:from-gray-800 dark:to-gray-900">
+    <section id="contact" className="py-12 md:py-20 bg-gradient-to-br from-slate-100 to-blue-100 dark:from-[#0a0a0a] dark:to-[#000000]">
       <NotificationToast />
       
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-500 to-blue-700 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-16 bg-gradient-to-r from-blue-500 to-blue-700 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent">
           Get In Touch
         </h2>
-
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 max-w-6xl mx-auto">
+          {/* Contact Form */}
           <motion.div 
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-lg"
+            className="bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-800 shadow-lg"
           >
-            <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Send Me a Message</h3>
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white">Send Me a Message</h3>
+            
+            <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+                  <label htmlFor="name" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                     Full Name
                   </label>
                   <input
@@ -190,14 +191,14 @@ const Contact = () => {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/20 dark:bg-white/10 border border-white/30 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                     placeholder="Your name"
                     required
                     minLength="2"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+                  <label htmlFor="email" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                     Email Address
                   </label>
                   <input
@@ -206,14 +207,15 @@ const Contact = () => {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/20 dark:bg-white/10 border border-white/30 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                     placeholder="your.email@example.com"
                     required
                   />
                 </div>
               </div>
+              
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+                <label htmlFor="subject" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                   Subject
                 </label>
                 <input
@@ -222,23 +224,24 @@ const Contact = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/20 dark:bg-white/10 border border-white/30 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                   placeholder="What's this about?"
                   required
                   minLength="3"
                 />
               </div>
+              
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">
+                <label htmlFor="message" className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">
                   Message
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  rows={5}
+                  rows={4}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 bg-white/20 dark:bg-white/10 border border-white/30 dark:border-white/10 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 bg-white dark:bg-gray-800/50 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
                   placeholder="Your message here..."
                   required
                   minLength="10"
@@ -269,46 +272,52 @@ const Contact = () => {
               </button>
             </form>
           </motion.div>
-
+          
+          {/* Contact Info & Social Links */}
           <motion.div 
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="space-y-8"
+            className="space-y-6 md:space-y-8"
           >
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-lg">
-              <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Contact Information</h3>
-              <div className="space-y-6">
-                <div className="flex items-start gap-4 p-4 bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl border border-white/20 dark:border-white/10 hover:shadow-lg transition-all duration-300">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-500/30">
-                    <Mail className="w-6 h-6 text-blue-500" />
+            {/* Contact Information */}
+            <div className="bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-800 shadow-lg">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white">Contact Information</h3>
+              
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg md:rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-500/30 flex-shrink-0">
+                    <Mail className="w-5 h-5 md:w-6 md:h-6 text-blue-500" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-slate-900 dark:text-white mb-1">Email</h4>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-1">Email</h4>
                     <a 
                       href="#" 
                       onClick={handleEmailClick}
-                      className="text-slate-600 dark:text-slate-400 hover:text-blue-500 transition-colors"
+                      className="text-sm md:text-base text-gray-600 dark:text-gray-400 hover:text-blue-500 transition-colors break-all"
                     >
                       harshitarathore106@gmail.com
                     </a>
                   </div>
                 </div>
-                <div className="flex items-start gap-4 p-4 bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl border border-white/20 dark:border-white/10 hover:shadow-lg transition-all duration-300">
-                  <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-500/30">
-                    <MapPin className="w-6 h-6 text-blue-500" />
+                
+                <div className="flex items-start gap-3 md:gap-4 p-3 md:p-4 bg-gray-50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg md:rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-300">
+                  <div className="w-10 h-10 md:w-12 md:h-12 bg-blue-500/20 rounded-full flex items-center justify-center border border-blue-500/30 flex-shrink-0">
+                    <MapPin className="w-5 h-5 md:w-6 md:h-6 text-blue-500" />
                   </div>
                   <div>
-                    <h4 className="font-medium text-slate-900 dark:text-white mb-1">Location</h4>
-                    <p className="text-slate-600 dark:text-slate-400">Indore, Madhya Pradesh, India</p>
+                    <h4 className="font-medium text-gray-900 dark:text-white mb-1">Location</h4>
+                    <p className="text-sm md:text-base text-gray-600 dark:text-gray-400">Indore, Madhya Pradesh, India</p>
                   </div>
                 </div>
               </div>
             </div>
-
-            <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-lg">
-              <h3 className="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Connect With Me</h3>
-              <div className="flex justify-center gap-6">
+            
+            {/* Social Links */}
+            <div className="bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-6 md:p-8 border border-gray-200 dark:border-gray-800 shadow-lg">
+              <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-900 dark:text-white">Connect With Me</h3>
+              
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={index}
@@ -318,10 +327,10 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     whileHover={{ y: -5 }}
                     whileTap={{ scale: 0.9 }}
-                    className={`relative group w-14 h-14 rounded-full flex items-center justify-center ${social.bgColor} shadow-md hover:shadow-lg transition-all duration-300`}
+                    className={`relative group w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center ${social.bgColor} shadow-md hover:shadow-lg transition-all duration-300`}
                   >
-                    <social.icon className={`w-6 h-6 ${social.color}`} />
-                    <span className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                    <social.icon className={`w-5 h-5 md:w-6 md:h-6 ${social.color}`} />
+                    <span className="absolute -bottom-6 md:-bottom-8 left-1/2 transform -translate-x-1/2 bg-gray-900 dark:bg-gray-800 text-white text-xs px-2 py-1 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
                       {social.name}
                     </span>
                   </motion.a>

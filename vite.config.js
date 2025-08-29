@@ -8,6 +8,9 @@ export default defineConfig({
     host: true, // Needed for Docker/network access
     port: 3000,
     strictPort: true,
+      css: {
+    transformer: "postcss", 
+      },
   },
   resolve: {
     alias: {
@@ -15,3 +18,6 @@ export default defineConfig({
     }
   }
 });
+
+
+

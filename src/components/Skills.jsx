@@ -12,11 +12,8 @@ import {
   SiGithub,
   SiGooglecolab,
 } from "react-icons/si";
-
 import { DiJava } from "react-icons/di";   
 import { FaAws } from "react-icons/fa";    
-
-
 
 const Skills = () => {
   const skillCategories = [
@@ -24,10 +21,9 @@ const Skills = () => {
       title: "Programming Languages",
       icon: Code,
       skills: [
-           { name: "Java", color: "#ed8b00", icon: <DiJava /> },
-        { name: "JavaScript", color: "#f7df1e", icon: <SiJavascript /> },
+        { name: " Core Java (J2SE)", color: "#ed8b00", icon: <DiJava /> },
+        { name: "JavaScript (ES6+)", color: "#f7df1e", icon: <SiJavascript /> },
         { name: "Python", color: "#3776ab", icon: <SiPython /> },
-     
       ],
     },
     {
@@ -37,7 +33,7 @@ const Skills = () => {
         { name: "HTML5", color: "#e34f26", icon: <SiHtml5 /> },
         { name: "CSS3", color: "#1572b6", icon: <SiCss3 /> },
         { name: "Tailwind CSS", color: "#06b6d4", icon: <SiTailwindcss /> },
-          { name: "ReactJS", color: "#61dafb", icon: <SiReact /> },
+        { name: "React.js", color: "#61dafb", icon: <SiReact /> },
       ],
     },
     {
@@ -68,39 +64,38 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-blue-500 to-blue-700 bg-clip-text text-transparent">
+    <section id="skills" className="py-12 md:py-20 bg-gradient-to-br from-slate-100 to-blue-100 dark:from-[#0a0a0a] dark:to-[#000000]">
+      <div className="container mx-auto px-4 md:px-6">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-16 bg-gradient-to-r from-blue-500 to-blue-700 dark:from-blue-400 dark:to-blue-600 bg-clip-text text-transparent">
           Technical Skills
         </h2>
-
+        
         {/* Skills Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16 ">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-12 md:mb-16">
           {skillCategories.map((category) => (
             <div
               key={category.title}
-              className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-6 border border-white/20 dark:border-white/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-102 hover:-translate-y-2"
+              className="bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-4 md:p-6 border border-gray-200 dark:border-gray-800 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 md:hover:-translate-y-2"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
-                  <category.icon className="w-5 h-5 text-white" />
+              <div className="flex items-center gap-2 md:gap-3 mb-4 md:mb-6">
+                <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-r from-blue-600 to-blue-700 dark:from-blue-500 dark:to-blue-600 rounded-lg md:rounded-xl flex items-center justify-center">
+                  <category.icon className="w-4 h-4 md:w-5 md:h-5 text-white" />
                 </div>
-                <h3 className="font-bold text-slate-900 dark:text-white">{category.title}</h3>
+                <h3 className="font-bold text-gray-900 dark:text-white text-sm md:text-base">{category.title}</h3>
               </div>
-
-              <div className="space-y-4">
+              <div className="space-y-3 md:space-y-4">
                 {category.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="flex items-center gap-3 p-3 bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-xl border border-white/20 dark:border-white/10 hover:shadow-lg transition-all duration-300 group hover:translate-x-2 hover:scale-102"
+                    className="flex items-center gap-2 md:gap-3 p-2 md:p-3 bg-gray-50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg md:rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 group hover:translate-x-1 md:hover:translate-x-2 hover:scale-[1.02]"
                   >
                     <div
-                      className="w-6 h-6 flex items-center justify-center text-white text-lg  text-[100px]"
+                      className="w-5 h-5 md:w-6 md:h-6 flex items-center justify-center"
                       style={{ color: skill.color }}
                     >
                       {skill.icon}
                     </div>
-                    <span className="font-medium text-slate-900 dark:text-white group-hover:text-blue-500 transition-colors">
+                    <span className="font-medium text-gray-700 dark:text-gray-300 text-sm md:text-base group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                       {skill.name}
                     </span>
                   </div>
@@ -109,20 +104,20 @@ const Skills = () => {
             </div>
           ))}
         </div>
-
+        
         {/* Proficiency Levels */}
-        <div className="bg-white/10 dark:bg-white/5 backdrop-blur-xl rounded-2xl p-8 border border-white/20 dark:border-white/10 shadow-lg">
-          <h3 className="text-2xl font-bold text-center mb-8 text-slate-900 dark:text-white">Proficiency Levels</h3>
-          <div className="space-y-6">
+        <div className="bg-white/90 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl md:rounded-2xl p-5 md:p-8 border border-gray-200 dark:border-gray-800 shadow-lg">
+          <h3 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-gray-900 dark:text-white">Proficiency Levels</h3>
+          <div className="space-y-4 md:space-y-6">
             {proficiencyLevels.map((item) => (
               <div key={item.skill}>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium text-slate-900 dark:text-white">{item.skill}</span>
-                  <span className="text-blue-500 font-bold">{item.level}%</span>
+                <div className="flex justify-between items-center mb-1 md:mb-2">
+                  <span className="font-medium text-gray-900 dark:text-white text-sm md:text-base">{item.skill}</span>
+                  <span className="text-blue-600 dark:text-blue-400 font-bold text-sm md:text-base">{item.level}%</span>
                 </div>
-                <div className="w-full h-3 bg-white/10 dark:bg-white/5 rounded-full overflow-hidden border border-white/20 dark:border-white/10">
+                <div className="w-full h-2 md:h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600">
                   <div
-                    className="h-full bg-gradient-to-r from-blue-500 to-blue-700 rounded-full relative overflow-hidden transition-all duration-1000 ease-out"
+                    className="h-full bg-gradient-to-r from-blue-500 to-blue-700 dark:from-blue-400 dark:to-blue-600 rounded-full relative overflow-hidden transition-all duration-1000 ease-out"
                     style={{ width: `${item.level}%` }}
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer" />

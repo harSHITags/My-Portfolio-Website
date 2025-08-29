@@ -8,7 +8,6 @@ import Experience from "./components/Experience"
 import Certifications from "./components/Certifications"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
-import Chatbot from "./components/Chatbot"
 import ThemeToggle from "./components/ThemeToggle"
 import ParallaxBackground from "./components/ParallaxBackground"
 import Toast from "./components/Toast"
@@ -20,6 +19,7 @@ import "./App.css"
 function App() {
   const [darkMode, setDarkMode] = useState(true)
   const [toast, setToast] = useState({ show: false, message: "", type: "success" })
+  const [navbarHeight, setNavbarHeight] = useState(0)
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme")
@@ -37,6 +37,25 @@ function App() {
     }
     localStorage.setItem("theme", darkMode ? "dark" : "light")
   }, [darkMode])
+
+  // Get navbar height and update on resize
+  useEffect(() => {
+    const updateNavbarHeight = () => {
+      const navbar = document.querySelector('nav')
+      if (navbar) {
+        setNavbarHeight(navbar.offsetHeight)
+      }
+    }
+
+    // Initial height calculation
+    updateNavbarHeight()
+
+    // Update on resize
+    window.addEventListener('resize', updateNavbarHeight)
+    
+    // Clean up
+    return () => window.removeEventListener('resize', updateNavbarHeight)
+  }, [])
 
   const showToast = (message, type = "success") => {
     setToast({ show: true, message, type })
@@ -58,30 +77,25 @@ function App() {
       <ParallaxBackground />
       <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
       <Navigation />
-
-      <main className="relative z-10 critical-render">
+      <main 
+        className="relative z-10 critical-render" 
+        style={{ paddingTop: `${navbarHeight}px` }}
+      >
         <Hero showToast={showToast} />
         <About showToast={showToast} />
         <Skills />
         <Projects />
         <Experience />
-
         {/* Lazy load non-critical sections */}
         <LazySection threshold={0.1}>
           <Certifications />
         </LazySection>
-
         <LazySection threshold={0.1}>
           <Contact showToast={showToast} />
         </LazySection>
       </main>
-
       <LazySection threshold={0.1}>
         <Footer />
-      </LazySection>
-
-      <LazySection threshold={0.1}>
-        <Chatbot />
       </LazySection>
 
       <Toast toast={toast} />
