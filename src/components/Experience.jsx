@@ -1,5 +1,5 @@
 import { Briefcase, Users, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import PR from "../assets/Experience/PR.png";
 import Card from "../assets/Experience/card.jpg";
 import Litopia from "../assets/Experience/Litopia.jpg";
@@ -22,36 +22,94 @@ const EnhancedImageSlider = () => {
       caption: "Team Collaboration",
     },
   ];
+
   const [current, setCurrent] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const sliderRef = useRef(null);
+
+  // Handle auto-play
+  useEffect(() => {
+    let interval;
+    if (isAutoPlaying) {
+      interval = setInterval(() => {
+        next();
+      }, 5000);
+    }
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowLeft") prev();
+      if (e.key === "ArrowRight") next();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
   const next = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrent((prev) => (prev === images.length - 1 ? 0 : prev + 1));
-  }, [images.length]);
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, [images.length, isTransitioning]);
+
   const prev = useCallback(() => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
     setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
-  }, [images.length]);
+    setTimeout(() => setIsTransitioning(false), 700);
+  }, [images.length, isTransitioning]);
+
   const goToSlide = (index) => {
+    if (isTransitioning || index === current) return;
+    setIsTransitioning(true);
     setCurrent(index);
+    setTimeout(() => setIsTransitioning(false), 700);
+  };
+
+  // Touch handlers for swipe functionality
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 75) {
+      // Swipe left
+      next();
+    } else if (touchEnd - touchStart > 75) {
+      // Swipe right
+      prev();
+    }
   };
 
   return (
     <div className="mt-4 md:mt-6">
       <div
+        ref={sliderRef}
         className="relative w-full max-w-[90%] sm:max-w-[80%] md:max-w-md mx-auto rounded-xl md:rounded-2xl overflow-hidden shadow-lg border border-gray-700 dark:border-gray-600 bg-gray-900/80 backdrop-blur-sm transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
         onMouseEnter={() => setIsAutoPlaying(false)}
         onMouseLeave={() => setIsAutoPlaying(true)}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         {/* Slider content */}
         <div className="relative aspect-[4/3] overflow-hidden">
           {images.map((img, index) => (
             <div
               key={index}
-              className={`absolute inset-0 transition-all duration-700 ease-in-out transform ${
-                index === current
-                  ? "opacity-100 translate-x-0 scale-100"
-                  : index < current
-                  ? "opacity-0 -translate-x-full scale-95"
-                  : "opacity-0 translate-x-full scale-95"
+              className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                index === current ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
             >
               <img
@@ -68,10 +126,13 @@ const EnhancedImageSlider = () => {
               </div>
             </div>
           ))}
+          
+          {/* Navigation buttons */}
           <button
             onClick={prev}
             className="absolute left-2 md:left-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-600 bg-gray-800/80 text-gray-200 hover:bg-gray-700 transition-all duration-200 hover:scale-110 z-10"
             aria-label="Previous image"
+            disabled={isTransitioning}
           >
             <ChevronLeft className="w-4 h-4 md:w-5 md:h-5 mx-auto" />
           </button>
@@ -79,16 +140,19 @@ const EnhancedImageSlider = () => {
             onClick={next}
             className="absolute right-2 md:right-3 top-1/2 -translate-y-1/2 w-8 h-8 md:w-10 md:h-10 rounded-full border border-gray-600 bg-gray-800/80 text-gray-200 hover:bg-gray-700 transition-all duration-200 hover:scale-110 z-10"
             aria-label="Next image"
+            disabled={isTransitioning}
           >
             <ChevronRight className="w-4 h-4 md:w-5 md:h-5 mx-auto" />
           </button>
         </div>
+        
         {/* Indicators */}
         <div className="flex justify-center items-center gap-2 p-3 md:p-4 bg-gray-900/80">
           {images.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
+              disabled={isTransitioning}
               className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
                 index === current 
                   ? "bg-blue-400 w-4 md:w-6" 
@@ -98,14 +162,19 @@ const EnhancedImageSlider = () => {
             />
           ))}
         </div>
+        
         {/* Progress bar */}
         <div className="h-1 bg-gray-800">
           <div
-            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-700 ease-out"
-            style={{ width: `${((current + 1) / images.length) * 100}%` }}
+            className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-5000 ease-linear"
+            style={{ 
+              width: `${((current + 1) / images.length) * 100}%`,
+              transition: isAutoPlaying ? 'width 5s linear' : 'none'
+            }}
           />
         </div>
       </div>
+      
       <div className="text-center mt-2 md:mt-3">
         <span className="text-xs md:text-sm font-medium text-gray-400">
           {current + 1} of {images.length}
@@ -134,7 +203,6 @@ export default function Experience() {
             "Converted trained model to TFLite for real-time predictions on Android Studio",
             "Enabled users to diagnose diseases from leaf images with treatment suggestions",
             "Achieved ~99%+ accuracy on test data; no internet required for predictions",
-
           ],
           achievements: [
             "Google Developer Badges",
@@ -170,6 +238,7 @@ export default function Experience() {
       ],
     },
   ];
+
   return (
     <section
       id="experience"

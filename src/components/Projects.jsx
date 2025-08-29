@@ -1,4 +1,7 @@
 import { MapPin, Rocket, User, ExternalLink, Github, Check } from "lucide-react";
+import LocalMate from "../assets/Projects/LocalMate.png" 
+import portfolio from "../assets/Projects/portfolio.png"
+import cosmic from "../assets/Projects/cosmic.png"
 
 const Projects = () => {
   const projects = [
@@ -6,6 +9,9 @@ const Projects = () => {
       title: "LocalMate",
       subtitle: "Location-Based Services Finder",
       icon: MapPin,
+      image: LocalMate, 
+      liveDemo: "",
+      sourceCode: "", 
       description:
         "A comprehensive web application that helps users discover nearby service providers like plumbers, electricians, and other professionals. Built with modern web technologies and integrated with real-time location services.",
       features: ["Real-time Geolocation", "Google Maps Integration", "Firebase Authentication", "Admin Panel"],
@@ -15,13 +21,16 @@ const Projects = () => {
         { number: "50+", label: "Service Providers" },
         { number: "95%", label: "Satisfaction" },
       ],
-      status: "Completed",
-      gradient: "from-blue-600 to-purple-600",
+      status: "Ongoing",
+      gradient: "from-yellow-600 to-amber-600", 
     },
     {
       title: "Cosmic Explorer",
       subtitle: "Space Facts & ISS Tracker",
       icon: Rocket,
+      image: cosmic,
+      liveDemo: "", 
+      sourceCode: "", 
       description:
         "An interactive web application that provides real-time space facts, tracks the International Space Station, and notifies users when the ISS is visible from their location. Features beautiful space-themed UI and educational content.",
       features: ["ISS Live Tracking", "Space Facts API", "Location-based Notifications", "Responsive Design"],
@@ -31,15 +40,18 @@ const Projects = () => {
         { number: "24/7", label: "Live Data" },
         { number: "100%", label: "Responsive" },
       ],
-      status: "Completed",
-      gradient: "from-purple-600 to-pink-600",
+      status: "Ongoing",
+      gradient: "from-indigo-800 to-purple-600",
     },
     {
       title: "Interactive Portfolio",
-      subtitle: "Personal Portfolio with Chatbot",
+      subtitle: "Personal Portfolio ",
       icon: User,
+      image: portfolio, 
+      liveDemo: "https://vocal-seahorse-05efa4.netlify.app/", 
+      sourceCode: "https://github.com/harSHITags/My-Portfolio-Website",
       description:
-        "A modern, responsive portfolio website featuring glassmorphism design, smooth animations, and an integrated AI chatbot. Showcases projects, skills, and experience with interactive elements and downloadable portfolio feature.",
+        "A modern, responsive portfolio website featuring glassmorphism designs and smooth animations. Showcases projects, skills, and experience with interactive elements and downloadable portfolio feature.",
       features: ["Glassmorphism Design", "Interactive Chatbot", "Smooth Animations", "Dark/Light Theme"],
       technologies: ["ReactJs", "Tailwind CSS", "Firebase", "Glassmorphism", "Responsive Design"],
       stats: [
@@ -48,10 +60,9 @@ const Projects = () => {
         { number: "Modern", label: "Design" },
       ],
       status: "Completed",
-      gradient: "from-green-600 to-blue-600",
+      gradient: "from-gray-900 to-blue-800", 
     },
   ];
-
   return (
     <section
       id="projects"
@@ -131,25 +142,42 @@ const Projects = () => {
                     
                     {/* Project Links */}
                     <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                      <button className="flex items-center justify-center gap-2 px-4 py-2 md:px-6 md:py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg md:rounded-xl font-medium text-sm md:text-base hover:shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5">
+                      <a 
+                        href={project.liveDemo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                       className="flex items-center justify-center gap-2 px-4 py-2 md:px-6 md:py-3 
+             rounded-lg md:rounded-xl font-medium text-sm md:text-base text-white 
+             bg-gradient-to-r from-black to-gray-900 
+             hover:from-gray-900 hover:to-black 
+             transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
+>  
                         <ExternalLink className="w-4 h-4 md:w-5 md:h-5" />
                         <span>Live Demo</span>
-                      </button>
-                      <button className="flex items-center justify-center gap-2 px-4 py-2 md:px-6 md:py-3 border-2 border-blue-500 text-blue-500 rounded-lg md:rounded-xl font-medium text-sm md:text-base hover:bg-blue-500 hover:text-white transition-all duration-300 hover:scale-105 hover:-translate-y-0.5">
+                      </a>
+                      <a 
+                        href={project.sourceCode}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-4 py-2 md:px-6 md:py-3 border-2 rounded-lg md:rounded-xl font-medium text-sm md:text-base hover:bg-blue-500 hover:text-white transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
+                      >
                         <Github className="w-4 h-4 md:w-5 md:h-5" />
                         <span>Source Code</span>
-                      </button>
+                      </a>
                     </div>
                   </div>
                   
                   {/* Project Visual & Stats */}
                   <div className="space-y-4 md:space-y-6">
-                    {/* Project Visual */}
-                    <div
-                      className={`w-full h-48 md:h-64 bg-gradient-to-r ${project.gradient} rounded-xl md:rounded-2xl flex items-center justify-center relative overflow-hidden shadow-lg hover:scale-105 transition-all duration-300`}
-                    >
-                      <project.icon className="w-16 h-16 md:w-20 md:h-20 text-white/70" />
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                    {/* Project Visual - Updated to use actual image */}
+                    <div className="w-full h-48 md:h-64 rounded-xl md:rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-all duration-300 relative">
+                      <img 
+                        src={project.image} 
+                        alt={project.title}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Optional: Add a subtle overlay gradient */}
+                      <div className={`absolute inset-0 bg-gradient-to-r ${project.gradient} opacity-10`} />
                     </div>
                     
                     {/* Stats */}
@@ -178,5 +206,4 @@ const Projects = () => {
     </section>
   );
 };
-
 export default Projects;
