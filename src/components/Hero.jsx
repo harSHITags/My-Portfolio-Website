@@ -4,7 +4,7 @@ import myImage from "../assets/profile//Linkedin Profile pic .jpg";
 const Hero = ({ showToast }) => {
   const viewResume = () => {
    
-    window.open("https://drive.google.com/file/d/1pVOVxQ5iLDo-JxRsnk5ByQbC8587zStR/view?usp=drive_link", "_blank");
+    window.open("https://drive.google.com/file/d/1JT29J6E5LIhcjDcZnbu2DZhq7FbOIBm9/view?usp=sharing", "_blank");
     showToast("Opening resume...", "info");
   };
 
