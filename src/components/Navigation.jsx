@@ -76,7 +76,7 @@ const Navigation = () => {
           
           <div className="flex items-center gap-4">
             <button
-              onClick={() => scrollToSection("#contact")}
+              onClick={() => scrollToSection(href="#contact")}
               className="hidden md:block px-6 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-full font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
             >
               Hire Me
@@ -106,7 +106,7 @@ const Navigation = () => {
                 </button>
               ))}
               <button
-                onClick={() => scrollToSection("#contact")}
+               onClick={() => scrollToSection("#contact")}
                 className="block w-full text-left px-4 py-3 text-blue-500 font-medium hover:bg-white/10 dark:hover:bg-white/5 transition-colors rounded-md"
               >
                 Hire Me

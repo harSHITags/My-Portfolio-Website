@@ -4,7 +4,7 @@ import myImage from "../assets/profile//Linkedin Profile pic .jpg";
 const Hero = ({ showToast }) => {
   const viewResume = () => {
    
-    window.open("https://drive.google.com/file/d/YOUR_RESUME_FILE_ID/view?usp=sharing", "_blank");
+    window.open("https://drive.google.com/file/d/1pVOVxQ5iLDo-JxRsnk5ByQbC8587zStR/view?usp=drive_link", "_blank");
     showToast("Opening resume...", "info");
   };
 
@@ -58,7 +58,7 @@ const Hero = ({ showToast }) => {
                 className="flex items-center gap-2 px-5 py-2.5 md:px-7 md:py-3 bg-gradient-to-r from-blue-500 to-blue-700 text-white rounded-full font-medium hover:shadow-lg transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
               >
                 <Download className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="text-sm md:text-base">View/Download Resume</span>
+                <span className="text-sm md:text-base">View Resume</span>
               </button>
             </div>
           </div>
@@ -133,7 +133,7 @@ const Hero = ({ showToast }) => {
         
         {/* Quote Section */}
         <div className="relative max-w-xs sm:max-w-sm mx-auto mt-16 md:mt-24 p-4 md:p-6 bg-white/10 dark:bg-slate-900/40 rounded-xl md:rounded-2xl border border-blue-400/25 shadow-[0_8px_20px_rgba(0,0,0,0.12)] backdrop-blur-3xl transition-shadow duration-300 hover:shadow-blue-400/30 group animate-fade-in-up">
-          <div className="absolute -top-5 left-4 w-8 h-8 md:w-10 md:h-10 bg-blue-600/90 text-white text-xl md:text-2xl font-semibold rounded-full flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+          <div className="absolute -top-3 left-4 w-8 h-8 md:w-8 md:h-8 bg-blue-600/90 text-white text-xl md:text-2xl font-semibold rounded-full flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
             ❝
           </div>
           <p className="text-slate-900 dark:text-slate-100 text-base sm:text-lg font-normal italic leading-snug mb-3 md:mb-4 pl-3">

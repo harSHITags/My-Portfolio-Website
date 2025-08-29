@@ -89,7 +89,7 @@ Generated on: ${new Date().toLocaleDateString()}
     {
       title: "Secondary Education",
       institution: "Bal Niketan Higher Secondary School",
-      period: "2010 - 2020",
+      period: "2019 - 2020",
       description: "Score: 94% | Strong foundation in Mathematics and Science",
     },
   ]
